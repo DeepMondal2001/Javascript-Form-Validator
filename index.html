@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+</head>
+<body>
+
+    <form id="test_form">
+        <span>Username: </span><input type="text" id="uname" value="coolkid" ><br>
+        <span>Password</span> <input type="text" id="pass" value="dfsdfsdfsdf"><br>
+        <span>Repeat Password</span> <input type="text" id="repeat_pass" value="dfsdfsdfsdf"><br>
+        <input type="submit" value="Submit">
+    </form>
+    
+
+<script src="validate.js"></script>
+<script>
+document.getElementById("test_form").addEventListener("submit", function(e){
+
+e.preventDefault();
+var validation = new Validation({
+    uname : {
+        empty: false,
+        min: 6,
+        max: 30,
+        regexp: /^[0-9a-zA-Z]+$/,
+        errorMessageOn: {
+            empty: 'Username can not be empty.',
+            min: 'Username must be greater then 6 characters.',
+            max : 'Username must be less then 30 characters.',
+            regexp : 'Username is not valid.'
+        }
+    },
+
+    pass: {
+        empty: false,
+        min: 6,
+        max: 30,
+        regexp: false,
+        errorMessageOn: {
+            empty: 'Password can not be empty.',
+            min: 'Password must be greater then 6 characters.',
+            max : 'Password must be less then 30 characters.'
+        }
+    },
+    repeat_pass: {
+        empty: false,
+        min: 6,
+        max: 30,
+        regexp: false,
+        match: 'pass',
+        errorMessageOn: {
+            empty: 'Password can not be empty.',
+            min: 'Password must be greater then 6 characters.',
+            max : 'Password must be less then 30 characters.',
+            match: 'Repeat Password must match Password'
+        }
+    }
+
+});
+
+
+console.log(validation.getErrorMessageCount());
+console.log(validation.getErrorMessages());
+return false;
+
+});
+
+
+</script>    
+</body>
+</html>
